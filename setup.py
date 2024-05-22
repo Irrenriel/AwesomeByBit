@@ -1,16 +1,20 @@
-from setuptools import setup, find_packages
+import setuptools
 
-setup(
+setuptools.setup(
+    include_package_data=True,
     name='AwesomeByBit',
-    version='0.1.0',
+    version='0.0.1',
     description='Awesome async lib for working with ByBit!',
-    author='Irrenriel',
     url='https://github.com/Irrenriel/AwesomeByBit',
+    author='Irrenriel',
+    packages=setuptools.find_packages(),
     install_requires=[
-        'aiohttp == 3.9.3',
-        'pydantic == 2.5.3'
+        'aiohttp>=3.9.3', 'pydantic>=2.5.3'
     ],
-    packages=find_packages(
-        include=['AwesomeByBit.*']
-    )
+    long_description='Awesome async lib for working with ByBit!',
+    long_description_content_type="text/markdown",
+    classifiers=[
+        "Programming Language :: Python :: 3",
+         "Operating System :: OS Independent",
+    ],
 )

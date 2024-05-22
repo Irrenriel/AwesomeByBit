@@ -1,3 +1,5 @@
 from .PyBitTickerResponse import PyBitTickerResponse
 from .PyBitWalletBalanceResponse import PyBitWalletBalanceResponse
 from .PyBitServerTimeResponse import PyBitServerTimeResponse
+from .PyBitCoin import PyBitCoin
+from .PyBitBaseModel import PyBitBaseModel
