@@ -47,3 +47,6 @@ path = "AwesomeByBit/__meta__.py"
 
 [project.urls]
 Repository = "https://github.com/Irrenriel/AwesomeByBit"
+
+[tool.ruff]
+src = ["AwesomeByBit"]
