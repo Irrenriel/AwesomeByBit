@@ -1,4 +1,4 @@
-from models.PyBitBaseModel import PyBitBaseModel
+from AwesomeByBit.models.PyBitBaseModel import PyBitBaseModel
 
 
 class PyBitTickerResponse(PyBitBaseModel):

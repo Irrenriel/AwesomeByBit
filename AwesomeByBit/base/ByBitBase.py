@@ -6,7 +6,7 @@ import time
 import aiohttp
 
 
-class AsyncByBitBase:
+class ByBitBase:
     """
     [!!!] SOURCE: https://github.com/GabrieleTurelli/BybitAsync [!!!]
 

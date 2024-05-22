@@ -1,10 +1,10 @@
 from pydantic import BaseModel
 
-from base.AsyncByBitBase import AsyncByBitBase
+from AwesomeByBit.base.ByBitBase import ByBitBase
 
 
 class PyBitBaseModel(BaseModel):
-    client: AsyncByBitBase
+    client: ByBitBase
 
     class Config:
         arbitrary_types_allowed = True

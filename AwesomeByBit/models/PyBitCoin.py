@@ -1,5 +1,5 @@
-from models.PyBitBaseModel import PyBitBaseModel
-from models.PyBitTickerResponse import PyBitTickerResponse
+from AwesomeByBit.models.PyBitTickerResponse import PyBitTickerResponse
+from AwesomeByBit.models.PyBitBaseModel import PyBitBaseModel
 
 
 class PyBitCoin(PyBitBaseModel):

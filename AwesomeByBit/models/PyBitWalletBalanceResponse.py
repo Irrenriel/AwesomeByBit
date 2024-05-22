@@ -1,8 +1,8 @@
 from typing import List
 
-from enums import AccountType
-from models.PyBitBaseModel import PyBitBaseModel
-from models.PyBitCoin import PyBitCoin
+from AwesomeByBit.enums.AccountType import AccountType
+from AwesomeByBit.models.PyBitBaseModel import PyBitBaseModel
+from AwesomeByBit.models.PyBitCoin import PyBitCoin
 
 
 class PyBitWalletBalanceResponse(PyBitBaseModel):
