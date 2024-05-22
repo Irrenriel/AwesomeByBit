@@ -11,5 +11,6 @@ setup(
         'pydantic == 2.5.3'
     ],
     packages=find_packages(where='AwesomeByBit'),
-    package_dir={"": "AwesomeByBit"}
+    package_dir={"": "AwesomeByBit"},
+    python_requires=">=3.12"
 )
