@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     include_package_data=True,
-    name='awesomebybit',
+    name='AwesomeByBit',
     version='0.0.1',
     description='Awesome async lib for working with ByBit!',
     url='https://github.com/Irrenriel/AwesomeByBit',
