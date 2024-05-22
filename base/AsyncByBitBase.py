@@ -15,13 +15,21 @@ class AsyncByBitBase:
     :param api_key: Your API key as a string.
     :param api_secret: Your API secret as a string.
     """
-    def __init__(self, api_key: str, api_secret: str):
+    def __init__(
+            self,
+            api_key: str,
+            api_secret: str
+    ):
         self.api_key = api_key
         self.api_secret = api_secret
         self.recv_window = str(5000)
         self.base_url = "https://api.bybit.com"
 
-    async def send_public_request(self, endpoint: str, params: dict = None) -> dict:
+    async def send_public_request(
+            self,
+            endpoint: str,
+            params: dict = None
+    ) -> dict:
         """
         Send a public request to the Bybit API.
 
@@ -30,12 +38,18 @@ class AsyncByBitBase:
         :return: The response from the API as a dictionary.
         """
         url = f"{self.base_url}{endpoint}"
+
         async with aiohttp.ClientSession() as session:
             async with session.get(url, params=params) as response:
                 response.raise_for_status()
-                return await response.json()
+                return self._insert_client(await response.json())  # TODO: Need refactoring
 
-    async def send_signed_request(self, method: str, endpoint: str, params: dict = None):
+    async def send_signed_request(
+            self,
+            method: str,
+            endpoint: str,
+            params: dict = None
+    ):
         """
         Send a signed (private) request to the Bybit API.
 
@@ -49,6 +63,7 @@ class AsyncByBitBase:
 
         time_stamp = str(int(time.time() * 10 ** 3))
         signature = self._gen_signature(params, time_stamp, method)
+
         headers = {
             'X-BAPI-API-KEY': self.api_key,
             'X-BAPI-SIGN': signature,
@@ -59,11 +74,12 @@ class AsyncByBitBase:
             "Accept": "application/json"
         }
         url = f"{self.base_url}{endpoint}"
+
         async with aiohttp.ClientSession() as session:
             if method == "POST":
                 async with session.request("POST", url, headers=headers, data=json.dumps(params)) as response:
                     response.raise_for_status()
-                    return await response.json()
+                    return self._insert_client(await response.json())  # TODO: Need refactoring
 
             elif method == "GET":
                 params = self._dict_to_query_string(params)
@@ -71,9 +87,14 @@ class AsyncByBitBase:
 
                 async with session.request("GET", url, headers=headers) as response:
                     response.raise_for_status()
-                    return await response.json()
+                    return self._insert_client(await response.json())  # TODO: Need refactoring
 
-    def _gen_signature(self, params: dict, time_stamp: str, method: str):
+    def _gen_signature(
+            self,
+            params: dict,
+            time_stamp: str,
+            method: str
+    ):
         """
         Generate a signature for a private API request.
 
@@ -85,6 +106,7 @@ class AsyncByBitBase:
         if method.upper() == "POST":
             params = json.dumps(params)
             param_str = time_stamp + self.api_key + self.recv_window + str(params)
+
         else:
             param_str = time_stamp + self.api_key + self.recv_window + str(self._dict_to_query_string(params))
 
@@ -92,7 +114,9 @@ class AsyncByBitBase:
         return _hash.hexdigest()
 
     @staticmethod
-    def _dict_to_query_string(params: dict) -> str:
+    def _dict_to_query_string(
+            params: dict
+    ) -> str:
         """
         Convert a dictionary to a query string.
 
@@ -100,3 +124,21 @@ class AsyncByBitBase:
         :return: Query string.
         """
         return '&'.join([f'{key}={value}' for key, value in params.items()])
+
+    def _insert_client(
+            self,
+            data: dict
+    ) -> dict:
+        """
+        I forgot why I decided to insert the client into each response model, but so be it.
+        """
+        data.update({'client': self})
+
+        for k, v in data.items():
+            if isinstance(v, dict):
+                self._insert_client(v)
+
+            elif isinstance(v, list) or isinstance(v, tuple):
+                [self._insert_client(vv) for vv in v]
+
+        return data
