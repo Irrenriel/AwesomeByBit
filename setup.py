@@ -11,7 +11,6 @@ setup(
         'pydantic == 2.5.3'
     ],
     packages=find_packages(
-        where='AwesomeByBit',
-        include=['base', 'enums', 'models']
+        include=['AwesomeByBit.*']
     )
 )
