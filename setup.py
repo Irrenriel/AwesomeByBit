@@ -10,7 +10,6 @@ setup(
         'aiohttp == 3.9.3',
         'pydantic == 2.5.3'
     ],
-    packages=find_packages(
-        where='AwesomeByBit'
-    )
+    packages=find_packages(where='AwesomeByBit'),
+    package_dir={"": "AwesomeByBit"}
 )
