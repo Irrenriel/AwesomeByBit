@@ -5,6 +5,7 @@ setup(
     version='0.1.0',
     description='Awesome async lib for working with ByBit!',
     author='Irrenriel',
+    url='https://github.com/Irrenriel/AwesomeByBit',
     install_requirements=[
         'aiohttp == 3.9.3',
         'pydantic == 2.5.3'
