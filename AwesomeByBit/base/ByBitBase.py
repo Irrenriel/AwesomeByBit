@@ -42,7 +42,7 @@ class ByBitBase:
         async with aiohttp.ClientSession() as session:
             async with session.get(url, params=params) as response:
                 response.raise_for_status()
-                return self._insert_client(await response.json())  # TODO: Need refactoring
+                return await response.json()
 
     async def send_signed_request(
             self,
@@ -79,7 +79,7 @@ class ByBitBase:
             if method == "POST":
                 async with session.request("POST", url, headers=headers, data=json.dumps(params)) as response:
                     response.raise_for_status()
-                    return self._insert_client(await response.json())  # TODO: Need refactoring
+                    return await response.json()
 
             elif method == "GET":
                 params = self._dict_to_query_string(params)
@@ -87,7 +87,7 @@ class ByBitBase:
 
                 async with session.request("GET", url, headers=headers) as response:
                     response.raise_for_status()
-                    return self._insert_client(await response.json())  # TODO: Need refactoring
+                    return await response.json()
 
     def _gen_signature(
             self,

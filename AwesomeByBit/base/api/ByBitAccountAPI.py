@@ -2,6 +2,7 @@ from typing import Union, List
 
 from AwesomeByBit.base.ByBitBase import ByBitBase
 from AwesomeByBit.enums.AccountType import AccountType
+from AwesomeByBit.models.PyBitUpgradeToUnifiedAccountResponse import PyBitUpgradeToUnifiedAccountResponse
 from AwesomeByBit.models.PyBitWalletBalanceResponse import PyBitWalletBalanceResponse
 
 
@@ -27,15 +28,22 @@ class ByBitAccountAPI(ByBitBase):
             endpoint='/v5/account/wallet-balance',
             params={'accountType': account_type.value}
         )
-        return [PyBitWalletBalanceResponse(**self._insert_client(r)) for r in response['result']['list']]
+        return [PyBitWalletBalanceResponse(**r) for r in response['result']['list']]
 
-    async def upgrade_to_unified_account(self):
+    @property
+    async def upgrade_to_unified_account(
+            self
+    ) -> PyBitUpgradeToUnifiedAccountResponse:
         """
         Documentation Link: https://bybit-exchange.github.io/docs/v5/account/upgrade-unified-account
 
         :return:
         """
-        ...
+        response = await self.send_signed_request(
+            method='POST',
+            endpoint='/v5/account/upgrade-to-uta'
+        )
+        return PyBitUpgradeToUnifiedAccountResponse(**response['result'])
 
     async def get_borrow_history(self):
         """

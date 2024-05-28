@@ -3,3 +3,4 @@ from .PyBitWalletBalanceResponse import PyBitWalletBalanceResponse
 from .PyBitServerTimeResponse import PyBitServerTimeResponse
 from .PyBitCoin import PyBitCoin
 from .PyBitBaseModel import PyBitBaseModel
+from .PyBitUpgradeToUnifiedAccountResponse import PyBitUpgradeToUnifiedAccountResponse

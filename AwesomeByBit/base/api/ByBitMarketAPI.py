@@ -20,7 +20,7 @@ class ByBitMarketAPI(ByBitBase):
             method='GET',
             endpoint='/v5/market/time'
         )
-        return PyBitServerTimeResponse(**response['result'], client=self)
+        return PyBitServerTimeResponse(**response['result'])
 
     async def get_kline(self):
         """
@@ -92,7 +92,7 @@ class ByBitMarketAPI(ByBitBase):
             endpoint='/v5/market/tickers',
             params={'category': category.value, 'symbol': symbol}
         )
-        return [PyBitTickerResponse(**self._insert_client(r)) for r in response['result']['list']]
+        return [PyBitTickerResponse(**r) for r in response['result']['list']]
 
     async def get_funding_rate_history(self):
         """
